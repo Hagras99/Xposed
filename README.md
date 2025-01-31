@@ -1,2 +1,2 @@
 # Xposed
-Xposed helps verify the authenticity of images and URLs using AI-powered analysis. Upload an image or enter a URL to detect potential deepfakes easily. 🚀
+Xposed is a multimodal tool used to detect deepfakes and provide integrity to the digital community
