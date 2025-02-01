@@ -18,7 +18,7 @@
 
         .container {
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(1px);
+            backdrop-filter: blur(8px);
             width: 100%;
             max-width: 600px;
             padding: 30px;
@@ -111,11 +111,12 @@
             max-width: 500px;
             padding: 14px;
             border: none;
+            border-color: #00FFAA;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             font-size: 16px;
             outline: none;
-            color: #333;
+            color: black;
             background: #fff;
             transition: transform 0.3s ease;
         }
@@ -159,9 +160,10 @@
         }
 
         .footer {
-            margin-top: 20px;
+            margin-top: 50px;
             font-size: 14px;
             color: #e0e0e0;
+            font : bold;
             animation: fadeIn 2.5s ease;
         }
    
