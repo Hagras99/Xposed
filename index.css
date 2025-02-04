@@ -166,4 +166,36 @@
             font : bold;
             animation: fadeIn 2.5s ease;
         }
-   
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            display: none;
+        }
+        
+        #checkButton {
+            background-color: #00F0C8;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 240, 200, 0.3);
+        }
+        
+        #checkButton:hover {
+            background-color: #00C0A0;
+            box-shadow: 0 4px 15px rgba(0, 192, 160, 0.5);
+            transform: scale(1.05);
+        }

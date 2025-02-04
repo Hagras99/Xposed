@@ -28,8 +28,8 @@
     ],
   
     "icons": {
-      "16": "placeholder-icon-16.png",
-      "48": "placeholder-icon-48.png",
-      "128": "placeholder-icon-128.png"
+      "16": "logo.jpg",
+      "48": "logo.jpg",
+      "128": "logo.jpg"
     }
   }

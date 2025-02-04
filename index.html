@@ -12,19 +12,24 @@
         <div class="logo">
             <img src="logo.jpg" alt="Logo" class="logo-image">
         </div>
-        <div class="title">Real or  Fake ?</div>
+        <div class="title">Real or Fake?</div>
         <div class="description">Upload the URL of the desired video</div>
         <div class="input-section">
-            <input type="text" class="url-input" placeholder="Paste URL here...">
+            <input type="text" class="url-input" id="urlInput" placeholder="Paste URL here...">
             <div class="drag-drop" id="dropzone">Drag and drop files here or click to browse</div>
             <input type="file" id="fileInput" accept="image/*" hidden>
+            <button id="checkButton">Check</button>
         </div>
-        <div class="footer">Powered by XPOSED</br> Multi-Modal Tool to Detect Fake Content</div>
+        <div class="footer">Powered by XPOSED<br> Multi-Modal Tool to Detect Fake Content</div>
     </div>
+    <div class="loading-screen" id="loadingScreen">Processing...</div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const dropZone = document.getElementById('dropzone');
             const fileInput = document.getElementById('fileInput');
+            const checkButton = document.getElementById('checkButton');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const urlInput = document.getElementById('urlInput');
             
             function preventDefaults(e) {
                 e.preventDefault();
@@ -61,7 +66,7 @@
                 }
             });
             
-            fileInput.addEventListener('change', (e) => {
+            fileInput.addEventListener('change', () => {
                 if (fileInput.files.length > 0) {
                     handleFile(fileInput.files[0]);
                 }
@@ -78,6 +83,18 @@
                     alert('Please upload an image file');
                 }
             }
+            
+            checkButton.addEventListener('click', () => {
+                if (!urlInput.value.trim() && !dropZone.querySelector('img')) {
+                    alert('Please provide a valid URL or upload an image');
+                    return;
+                }
+                loadingScreen.style.display = 'flex';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    alert('Analysis Complete!');
+                }, 3000);
+            });
         });
     </script>
 </body>
