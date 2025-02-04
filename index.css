@@ -9,12 +9,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 500px;
-            height: 700px;
           overflow: hidden;
             background: url('img.jpg') no-repeat center center/cover;
             font-family: 'Arial', sans-serif;
             color: white;
+            width: 500px;
+            height: 700px;
+            margin: 0;
+            padding: 10px; 
+            border: 3px solid #00ffcc; 
+            border-radius: 10px; 
+            
             
         }
 
