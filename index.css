@@ -190,12 +190,13 @@
         }
         
         #checkButton {
-            background-color: #00F0C8;
+            background-color: #064e42;
             border: none;
             padding: 12px 24px;
             font-size: 18px;
             color: white;
             border-radius: 25px;
+            border: 2px white;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             margin-top: 20px;
