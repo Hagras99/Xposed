@@ -1,28 +1,30 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Deepfake Checker</title>
-    <link rel="stylesheet" type="text/css" href="index.css">
-</head>
-<body>
-    <div class="container">
-        <div class="logo">
-            <img src="logo.jpg" alt="Logo" class="logo-image">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Deepfake Checker</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <div class="container" id="mainContainer">
+            <div class="logo">
+                <img src="logo.jpg" alt="Logo" class="logo-image">
+            </div>
+            <div class="title">Real or Fake?</div>
+            <div class="description">Upload the URL of the desired video or drop an image/video file</div>
+            <div class="input-section">
+                <input type="text" class="url-input" id="urlInput" placeholder="Paste URL here...">
+                <div class="drag-drop" id="dropzone">Drag and drop video files here or click to browse</div>
+                <input type="file" id="fileInput" accept="image/*,video/*" hidden>
+                <button id="checkButton">Check</button>
+            </div>
+            <div class="footer">Powered by XPOSED<br> Multi-Modal Tool to Detect Fake Content</div>
         </div>
-        <div class="title">Real or Fake?</div>
-        <div class="description">Upload the URL of the desired video</div>
-        <div class="input-section">
-            <input type="text" class="url-input" id="urlInput" placeholder="Paste URL here...">
-            <div class="drag-drop" id="dropzone">Drag and drop files here or click to browse</div>
-            <input type="file" id="fileInput" accept="image/*" hidden>
-            <button id="checkButton">Check</button>
-        </div>
-        <div class="footer">Powered by XPOSED<br> Multi-Modal Tool to Detect Fake Content</div>
-    </div>
-    <div class="loading-screen" id="loadingScreen">Processing...</div>
+        <div class="loading-screen" id="loadingScreen">Processing...</div>
+        <div class="result-overlay" id="resultOverlay"></div>
+        
     <script src="index.js"></script> 
 </body>
 </html>
