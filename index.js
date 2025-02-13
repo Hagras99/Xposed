@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('dropzone');
     const fileInput = document.getElementById('fileInput');
@@ -8,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultOverlay = document.getElementById('resultOverlay');
     const mainContainer = document.getElementById('mainContainer');
     
+    let currentFile = null; // Store the current file
+
     function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dropZone.querySelector('img') || dropZone.querySelector('video')) {
             if (confirm('Do you want to remove the uploaded file?')) {
                 dropZone.innerHTML = 'Drag and drop video files here or click to browse';
+                currentFile = null;
             }
         } else {
             fileInput.click();
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleFile(file) {
         if (file && (file.type.startsWith('image/') || file.type.startsWith('video/'))) {
+            currentFile = file; // Store the file
             const reader = new FileReader();
             reader.onload = function(e) {
                 if (file.type.startsWith('image/')) {
@@ -65,26 +68,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    checkButton.addEventListener('click', () => {
-        if (!urlInput.value.trim() && !dropZone.querySelector('img') && !dropZone.querySelector('video')) {
+    checkButton.addEventListener('click', async () => {
+        if (!urlInput.value.trim() && !currentFile) {
             alert('Please provide a valid URL or upload an image/video');
             return;
         }
+
         loadingScreen.style.display = 'flex';
-        
-        setTimeout(() => {
+
+        let formData = new FormData();
+        let videoUrl = urlInput.value.trim();
+
+        if (currentFile) {
+            // If file is uploaded
+            formData.append('video', currentFile); // Changed 'file' to 'video' to match Flask backend
+        } else if (videoUrl) {
+            // If URL is provided
+            formData.append('url', videoUrl);
+        } else {
+            alert('Please provide a video');
             loadingScreen.style.display = 'none';
-            const isFake = false; 
-            
-            resultOverlay.style.display = 'flex';
-            resultOverlay.style.color = isFake ? 'red' : 'green';
-            resultOverlay.textContent = isFake ? 'Fake content Detected!' : 'Real Content';
-            
-            setTimeout(() => {
-                resultOverlay.style.display = 'none';
-               // mainContainer.style.display = 'none';
-               dropZone.innerHTML = 'Drag and drop video files here or click to browse';
-            }, 3000);
-        }, 3000);
+            return;
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            loadingScreen.style.display = 'none';
+
+            if (response.ok) {
+                resultOverlay.style.display = 'flex';
+                resultOverlay.style.color = data.is_fake ? 'red' : 'green';
+                resultOverlay.textContent = data.is_fake ? 'Fake content Detected!' : 'Real Content';
+
+                setTimeout(() => {
+                    resultOverlay.style.display = 'none';
+                    dropZone.innerHTML = 'Drag and drop video files here or click to browse';
+                    currentFile = null;
+                }, 5000);
+            } else {
+                alert(data.error || 'Error detecting content');
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            loadingScreen.style.display = 'none';
+            alert('Error occurred while processing the video');
+        }
     });
 });
